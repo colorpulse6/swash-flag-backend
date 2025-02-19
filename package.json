@@ -1,0 +1,36 @@
+{
+  "name": "swash-flag-backend",
+  "version": "1.0.0",
+  "description": "Feature flag backend for Swash Flag",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@prisma/client": "^4.9.0",
+    "bcryptjs": "^3.0.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.8",
+    "eslint": "^8.55.0",
+    "prettier": "^3.0.0",
+    "prisma": "^4.9.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
