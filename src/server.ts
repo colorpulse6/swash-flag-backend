@@ -2,17 +2,12 @@ import express from "express";
 import cors from "cors";
 import featureFlagRoutes from "./routes/featureFlagRoutes";
 import authRoutes from "./routes/authRoutes";
+import * as process from "node:process";
 
 const app = express();
 
 app.use(cors({
-  origin: [
-    "https://swash-flag-dashboard.vercel.app",
-    "http://localhost:5173",
-
-  ],
-  methods: "GET, POST, PUT, DELETE, OPTIONS",
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: true,
   credentials: true
 }));
 

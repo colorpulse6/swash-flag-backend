@@ -14,6 +14,7 @@ export const authenticateJWT = async (
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.log('🚨 No token provided');
+
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -23,15 +24,13 @@ export const authenticateJWT = async (
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
 
-    console.log('✅ Decoded Token:', decoded);
-
     // ✅ Ensure user exists in DB
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
     });
 
     if (!user) {
-      console.log('🚨 User not found in DB for ID:', decoded.userId);
+
       res.status(401).json({ error: 'User not found' });
       return;
     }
