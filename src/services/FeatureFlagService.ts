@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { FeatureFlag, Targeting } from '../types';
-import { featureFlagSchema } from '../validators/featureFlagValidator';
+import {FeatureFlag, Targeting} from "../types.js";
+import {featureFlagSchema} from "../validators/featureFlagValidator";
+
 
 const prisma = new PrismaClient();
 

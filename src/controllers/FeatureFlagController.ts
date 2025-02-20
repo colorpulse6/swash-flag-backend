@@ -1,7 +1,7 @@
 import { Response } from 'express';
-import { AuthenticatedRequest } from '../types';
-import { featureFlagSchema } from '../validators/featureFlagValidator';
-import FeatureFlagService from '../services/FeatureFlagService';
+import {AuthenticatedRequest} from "../types";
+import FeatureFlagService from "../services/FeatureFlagService";
+import {featureFlagSchema} from "../validators/featureFlagValidator";
 
 class FeatureFlagController {
   async getFlags(req: AuthenticatedRequest, res: Response): Promise<void> {

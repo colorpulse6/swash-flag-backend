@@ -1,6 +1,7 @@
 import express from 'express';
-import { authenticateJWT } from '@middleware/authenticateJWT';
-import FeatureFlagController from '@controllers/FeatureFlagController';
+import {authenticateJWT} from "../middleware/authenticateJWT";
+import FeatureFlagController from "../controllers/FeatureFlagController";
+
 
 const router = express.Router();
 
