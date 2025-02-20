@@ -6,21 +6,28 @@ const prisma = new PrismaClient();
 
 class FeatureFlagService {
   async getAllFlags(userId: string): Promise<FeatureFlag[]> {
-    // TODO: Ensure `targeting` has the correct structure
-    return await prisma.featureFlag.findMany({ where: { userId } });
+    const flags = await prisma.featureFlag.findMany({ where: { userId } });
+    return flags.map((flag) => ({
+      ...flag,
+      targeting: JSON.parse(flag.targeting as unknown as string) as Targeting,
+    }));
   }
 
   async getFlagById(
     userId: string,
     flagId: string,
   ): Promise<FeatureFlag | null> {
-    return await prisma.featureFlag.findFirst({
+    const flag = await prisma.featureFlag.findFirst({
       where: { id: flagId, userId },
     });
+    if (!flag) return null;
+    return {
+      ...flag,
+      targeting: JSON.parse(flag.targeting as unknown as string) as Targeting,
+    };
   }
 
   async createFlag(userId: string, data: any): Promise<FeatureFlag> {
-    // Validate input before creating flag
     const validatedData = featureFlagSchema.parse(data);
 
     const flag = await prisma.featureFlag.create({
@@ -32,7 +39,6 @@ class FeatureFlagService {
       },
     });
 
-    // Ensure `targeting` has the correct structure
     return {
       ...flag,
       targeting: JSON.parse(flag.targeting as unknown as string) as Targeting,
@@ -43,7 +49,6 @@ class FeatureFlagService {
     try {
       const validatedData = featureFlagSchema.partial().parse(data);
 
-      // ✅ Fix: Use only `id` in `where` (since it's unique)
       return await prisma.featureFlag.update({
         where: { id: flagId },
         data: validatedData,
@@ -56,7 +61,6 @@ class FeatureFlagService {
 
   async deleteFlag(flagId: string, userId: string) {
     try {
-      // ✅ Fetch the flag first to verify ownership
       const flag = await prisma.featureFlag.findUnique({
         where: { id: flagId },
       });
@@ -90,7 +94,7 @@ class FeatureFlagService {
 
     if (!flag) throw new Error('Flag not found');
 
-    const { targeting } = flag as any; // Ensure correct type
+    const { targeting } = flag as any;
     const parsedTargeting = JSON.parse(
       targeting as unknown as string,
     ) as Targeting;
