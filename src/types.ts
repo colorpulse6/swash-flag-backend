@@ -1,6 +1,20 @@
 import { Request } from 'express';
-import { User } from '@prisma/client';
-import { JsonValue } from '@prisma/client/runtime/library';
+
+// Define the User type based on your Prisma schema
+export interface User {
+  id: string;
+  email: string;
+  // Add other fields as per your schema
+}
+
+// Define the JsonValue type
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
 
 export interface AuthenticatedRequest extends Request {
   user?: User;
