@@ -2,6 +2,8 @@
   "name": "swash-flag-backend",
   "version": "1.0.0",
   "scripts": {
+    "prebuild": "npx prisma migrate deploy",
+    "postinstall": "npx prisma generate",
     "build": "tsc",
     "start": "nodemon src/server.ts"
   },
