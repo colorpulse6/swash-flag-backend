@@ -2,6 +2,7 @@
   "name": "swash-flag-backend",
   "version": "1.0.0",
   "scripts": {
+    "build": "tsc",
     "start": "nodemon src/server.ts"
   },
   "devDependencies": {
